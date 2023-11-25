@@ -6,9 +6,9 @@ import Favourtires from "../../svg/Favourtires.vue";
   <div class="bg-black w-full h-[70px]">
     <div class="text-white px-[18px] py-5">
       <div class="flex justify-between items-center">
-        <div>
+        <RouterLink to="/">
           <img src="../../../assets/logo.svg" alt="logo" />
-        </div>
+        </RouterLink>
 
         <div><Favourtires /></div>
       </div>
