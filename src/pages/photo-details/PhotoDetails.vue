@@ -2,6 +2,7 @@
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
 import { PhotoDetails, UnsplashApi } from "../types";
+import { useFavouritesStore } from "../stores/favourites";
 
 onMounted(() => {
   fetchPhotoById(photoId);
@@ -40,6 +41,12 @@ const fetchPhotoById = async (id: string) => {
 
   photo.value = data;
 };
+
+const favouritesStore = useFavouritesStore();
+
+const add = () => {
+  favouritesStore.addFavourites(photo.value);
+};
 </script>
 
 <template>
@@ -62,7 +69,9 @@ const fetchPhotoById = async (id: string) => {
           </div>
         </div>
         <div class="flex gap-4">
-          <img src="../../assets/favourite.svg" alt="favourite" />
+          <button @click="add">
+            <img src="../../assets/favourite.svg" alt="favourite" />
+          </button>
           <img src="../../assets/download.svg" alt="favourite" />
         </div>
       </div>
