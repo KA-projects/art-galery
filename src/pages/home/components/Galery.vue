@@ -1,15 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-
-type UnsplashApi = {
-  urls: {
-    raw: string;
-    regular: string;
-    full: string;
-    small: string;
-    thumb: string;
-  };
-};
+import { type UnsplashApi } from "../../types";
 
 const photos = ref<UnsplashApi[]>([]);
 const term = ref<string>("");
@@ -72,7 +63,7 @@ const fetchPhotosBySearch = async (term: string) => {
     <div class="px-5">
       <div class="grid grid-cols-1 gap-5">
         <div v-for="photo in photos">
-          <RouterLink to="/photo-details">
+          <RouterLink :to="`/photo-details/${photo.id}`">
             <img
               class="rounded-lg object-cover max-w-full w-full h-[311px]"
               :src="photo.urls.small"

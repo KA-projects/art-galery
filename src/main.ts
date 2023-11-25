@@ -8,7 +8,7 @@ import App from "./App.vue";
 
 const routes = [
   { path: "/", component: Home },
-  { path: "/photo-details", component: PhotoDetails },
+  { path: "/photo-details/:id", component: PhotoDetails },
 ];
 
 const router = createRouter({
