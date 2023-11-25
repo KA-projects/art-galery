@@ -3,7 +3,7 @@ import Favourtires from "../svg/favourtires.vue";
 </script>
 
 <template>
-  <div class="bg-black w-full h-[72px]">
+  <div class="bg-black w-full h-[70px]">
     <div class="text-white px-[18px] py-5">
       <div class="flex justify-between items-center">
         <div>
