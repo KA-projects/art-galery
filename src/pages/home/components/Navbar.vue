@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Favourtires from "../../svg/Favourtires.vue";
+import FavourtiresSVG from "../../svg/FavourtiresSVG.vue";
 </script>
 
 <template>
@@ -10,7 +10,9 @@ import Favourtires from "../../svg/Favourtires.vue";
           <img src="../../../assets/logo.svg" alt="logo" />
         </RouterLink>
 
-        <div><Favourtires /></div>
+        <RouterLink to="/favourites">
+          <div><FavourtiresSVG /></div
+        ></RouterLink>
       </div>
     </div>
   </div>

@@ -44,7 +44,7 @@ const fetchPhotoById = async (id: string) => {
 
 const favouritesStore = useFavouritesStore();
 
-const add = () => {
+const addFavourite = () => {
   favouritesStore.addFavourites(photo.value);
 };
 </script>
@@ -69,7 +69,7 @@ const add = () => {
           </div>
         </div>
         <div class="flex gap-4">
-          <button @click="add">
+          <button @click="addFavourite">
             <img src="../../assets/favourite.svg" alt="favourite" />
           </button>
           <img src="../../assets/download.svg" alt="favourite" />
