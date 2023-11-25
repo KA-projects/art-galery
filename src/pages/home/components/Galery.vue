@@ -36,12 +36,13 @@ onMounted(() => {
   <div class="mt-[50px]">
     <div class="px-5">
       <div class="grid grid-cols-1 gap-5">
-        <img
-          v-for="photo in data"
-          class="rounded-lg object-cover max-w-full w-full h-[311px]"
-          :src="photo.urls.small"
-          alt="one"
-        />
+        <RouterLink v-for="photo in data" to="/photo-details">
+          <img
+            class="rounded-lg object-cover max-w-full w-full h-[311px]"
+            :src="photo.urls.small"
+            alt="one"
+          />
+        </RouterLink>
       </div>
     </div>
   </div>

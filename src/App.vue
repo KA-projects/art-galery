@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import Navbar from "./components/home/navbar.vue";
-import Search from "./components/home/Search.vue";
-import Galery from "./components/home/Galery.vue";
+import Navbar from "./pages/home/components/Navbar.vue";
 </script>
 
 <template>
   <Navbar />
-  <Search />
-  <Galery />
+  <RouterView></RouterView>
 </template>

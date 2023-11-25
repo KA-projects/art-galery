@@ -9,7 +9,7 @@
 
       <img
         class="absolute right-10"
-        src="../../assets/search.svg"
+        src="../../../assets/search.svg"
         alt="search"
       />
     </div>
