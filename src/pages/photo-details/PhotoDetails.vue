@@ -1,15 +1,23 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { PhotoDetails, UnsplashApi } from "../types";
 import { useFavouritesStore } from "../stores/favourites";
+
+const route = useRoute();
+const photoId = route.params.id as string;
 
 onMounted(() => {
   fetchPhotoById(photoId);
 });
 
-const route = useRoute();
-const photoId = route.params.id as string;
+watch(
+  () => route.params.id,
+  (newId) => {
+    fetchPhotoById(newId as string);
+    console.log("im fire: ", newId);
+  }
+);
 
 const photo = ref<UnsplashApi & PhotoDetails>({
   id: "",

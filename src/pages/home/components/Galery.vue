@@ -42,23 +42,25 @@ const fetchPhotosBySearch = async (term: string) => {
 
 <template>
   <div class="background min-h-[230px] h-auto w-full">
-    <div
-      class="relative px-5 flex items-center justify-center min-h-[230px] max-w-[886px] mx-auto lg:px-0"
-    >
-      <input
-        v-model="term"
-        class="bg-white h-[70px] w-full outline-none px-6 py-5 pr-[60px] placeholder:text-black"
-        type="text"
-        placeholder="Search"
-      />
+    <form @submit.prevent="fetchPhotosBySearch(term)">
+      <div
+        class="relative px-5 flex items-center justify-center min-h-[230px] max-w-[886px] mx-auto lg:px-0"
+      >
+        <input
+          v-model="term"
+          class="bg-white h-[70px] text-2xl w-full outline-none px-6 py-5 pr-[60px] placeholder:text-black"
+          type="text"
+          placeholder="Search"
+        />
 
-      <img
-        @click="fetchPhotosBySearch(term)"
-        class="absolute right-10 cursor-pointer lg:right-8"
-        src="../../../assets/search.svg"
-        alt="search"
-      />
-    </div>
+        <button
+          type="submit"
+          class="absolute right-10 cursor-pointer lg:right-8"
+        >
+          <img src="../../../assets/search.svg" alt="search" />
+        </button>
+      </div>
+    </form>
   </div>
 
   <div class="hidden lg:block h-4 w-full bg-[#c4c4c4]"></div>
