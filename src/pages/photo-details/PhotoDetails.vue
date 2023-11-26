@@ -71,7 +71,7 @@ const addFavourite = () => {
       </template>
     </v-snackbar>
 
-    <div class="px-5 max-w-container-xl mx-auto">
+    <div class="px-5 max-w-container-xl mx-auto w-full">
       <div class="flex justify-between">
         <div class="flex items-center">
           <div>
@@ -82,7 +82,7 @@ const addFavourite = () => {
             />
           </div>
           <div class="ml-3">
-            <div class="leading-none text-[32px]">
+            <div class="leading-none text-lg lg:text-[32px]">
               {{ photo.user.name }}
             </div>
             <div class="leading-none text-gray-500 text-sm lg:text-lg">
@@ -91,7 +91,7 @@ const addFavourite = () => {
           </div>
         </div>
         <div class="flex items-center gap-4">
-          <button @click="addFavourite">
+          <button class="w-[49px] h-[49px] flex-none" @click="addFavourite">
             <img src="../../assets/favourite.svg" alt="favourite" />
           </button>
           <img

@@ -55,14 +55,13 @@ const fetchPhotosBySearch = async (term: string) => {
         </RouterLink>
 
         <div class="flex items-center gap-10">
-          <button v-if="showSearch" class="flex items-center gap-[10px]">
-            <SearchSVG />
-
-            <v-dialog transition="dialog-bottom-transition" width="80vw">
+          <button v-if="showSearch">
+            <v-dialog transition="dialog-bottom-transition" width="90vw">
               <template v-slot:activator="{ props }">
-                <span v-bind="props" class="hidden lg:inline text-xl"
-                  >Search</span
-                >
+                <div v-bind="props" class="flex items-center gap-[10px]">
+                  <SearchSVG />
+                  <span class="hidden lg:inline text-xl">Search </span>
+                </div>
               </template>
 
               <template v-slot:default="{ isActive }">
@@ -73,7 +72,10 @@ const fetchPhotosBySearch = async (term: string) => {
                   >
                     Close
                   </button>
-                  <form @submit.prevent="fetchPhotosBySearch(term)">
+                  <form
+                    class="mt-4"
+                    @submit.prevent="fetchPhotosBySearch(term)"
+                  >
                     <div
                       class="relative px-5 flex justify-center max-w-[500px] mx-auto w-full lg:px-0"
                     >
