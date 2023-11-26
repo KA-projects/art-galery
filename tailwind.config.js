@@ -2,7 +2,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      maxWidth: {
+        "container-sm": "500px",
+        "container-xl": "1200px",
+      },
+    },
   },
   plugins: [],
 };

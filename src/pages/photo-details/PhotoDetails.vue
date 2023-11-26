@@ -51,39 +51,58 @@ const addFavourite = () => {
 
 <template>
   <div class="mt-10">
-    <div class="px-5">
+    <div class="px-5 max-w-container-xl mx-auto">
       <div class="flex justify-between">
         <div class="flex items-center">
           <div>
             <img
               :src="photo.user.profile_image.medium"
-              class="w-[48px] h-[48px] rounded-lg object-cover"
+              class="w-[48px] h-[48px] rounded-lg object-cover lg:w-[55px] lg:h-[55px]"
               alt="user"
             />
           </div>
           <div class="ml-3">
-            <div class="leading-none">{{ photo.user.name }}</div>
-            <div class="leading-none text-gray-500">
+            <div class="leading-none text-[32px]">
+              {{ photo.user.name }}
+            </div>
+            <div class="leading-none text-gray-500 text-sm lg:text-lg">
               {{ photo.user.username }}
             </div>
           </div>
         </div>
-        <div class="flex gap-4">
+        <div class="flex items-center gap-4">
           <button @click="addFavourite">
             <img src="../../assets/favourite.svg" alt="favourite" />
           </button>
-          <img src="../../assets/download.svg" alt="favourite" />
+          <img
+            class="lg:hidden"
+            src="../../assets/download.svg"
+            alt="favourite"
+          />
+          <div
+            class="hidden lg:flex lg:items-center lg:justify-center lg:rounded-lg bg-[#FFF200] w-[206px] h-[49px] px-6"
+          >
+            <div>
+              <img
+                class=""
+                src="../../assets/download-mini.svg"
+                alt="favourite"
+              />
+            </div>
+
+            <span class="text-lg ml-4">Download</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="mt-8">
-    <div class="px-5">
+    <div class="px-5 max-w-container-xl mx-auto">
       <img
-        :src="photo.urls.small"
+        :src="photo.urls.full"
         alt="photo"
-        class="rounded-lg min-h-[227px] object-cover max-w-full w-full"
+        class="rounded-lg min-h-[227px] max-h-[744px] object-cover max-w-full w-full"
       />
     </div>
   </div>

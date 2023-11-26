@@ -6,13 +6,15 @@ const favouritesStore = useFavouritesStore();
 
 <template>
   <div>
-    <div class="w-full">
-      <h2 class="mx-auto mt-10 font-bold text-4xl w-min">Favourites</h2>
+    <div class="hidden lg:block h-4 w-full bg-[#c4c4c4]"></div>
+
+    <div class="w-full mt-10 lg:mt-[94px]">
+      <h2 class="mx-auto font-bold text-4xl w-min lg:text-7xl">Favourites</h2>
     </div>
 
-    <div class="mt-[56px]">
-      <div class="px-5">
-        <div class="grid grid-cols-1 gap-5">
+    <div class="mt-[56px] lg:mt-[101px]">
+      <div class="px-5 max-w-container-sm lg:max-w-[1200px] mx-auto">
+        <div class="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:gap-[30px]">
           <div v-for="photo in favouritesStore.favourites">
             <RouterLink :to="`/photo-details/${photo.id}`">
               <img

@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import { createRouter, createWebHashHistory } from "vue-router";
+import { RouterOptions, createRouter, createWebHashHistory } from "vue-router";
 import { createPinia } from "pinia";
 import "./style.css";
 
@@ -8,7 +8,7 @@ import PhotoDetails from "./pages/photo-details/PhotoDetails.vue";
 import Liked from "./pages/favourites/Liked.vue";
 import App from "./App.vue";
 
-const routes = [
+const routes: RouterOptions["routes"] = [
   { path: "/", component: Home },
   { path: "/photo-details/:id", component: PhotoDetails },
   { path: "/favourites", component: Liked },
