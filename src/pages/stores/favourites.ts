@@ -7,6 +7,9 @@ export const useFavouritesStore = defineStore("favourites", {
   }),
   actions: {
     addFavourites(favourite: UnsplashApi & PhotoDetails) {
+      if (this.favourites.some((item) => item.id === favourite.id)) {
+        return;
+      }
       this.favourites.push(favourite);
     },
   },

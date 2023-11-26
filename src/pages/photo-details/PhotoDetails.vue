@@ -15,9 +15,10 @@ watch(
   () => route.params.id,
   (newId) => {
     fetchPhotoById(newId as string);
-    console.log("im fire: ", newId);
   }
 );
+
+const isOpenSnackbar = ref(false);
 
 const photo = ref<UnsplashApi & PhotoDetails>({
   id: "",
@@ -54,11 +55,22 @@ const favouritesStore = useFavouritesStore();
 
 const addFavourite = () => {
   favouritesStore.addFavourites(photo.value);
+  isOpenSnackbar.value = true;
 };
 </script>
 
 <template>
   <div class="mt-10">
+    <v-snackbar v-model="isOpenSnackbar" :timeout="2000">
+      <span class="text-lg">Added to favourites</span>
+
+      <template v-slot:actions>
+        <v-btn color="yellow" variant="text" @click="isOpenSnackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
     <div class="px-5 max-w-container-xl mx-auto">
       <div class="flex justify-between">
         <div class="flex items-center">

@@ -58,7 +58,7 @@ const fetchPhotosBySearch = async (term: string) => {
           <button v-if="showSearch" class="flex items-center gap-[10px]">
             <SearchSVG />
 
-            <v-dialog width="80vw">
+            <v-dialog transition="dialog-bottom-transition" width="80vw">
               <template v-slot:activator="{ props }">
                 <span v-bind="props" class="hidden lg:inline text-xl"
                   >Search</span
@@ -67,6 +67,12 @@ const fetchPhotosBySearch = async (term: string) => {
 
               <template v-slot:default="{ isActive }">
                 <v-card title="Search photos">
+                  <button
+                    @click="isActive.value = false"
+                    class="absolute top-4 right-8 text-lg font-medium"
+                  >
+                    Close
+                  </button>
                   <form @submit.prevent="fetchPhotosBySearch(term)">
                     <div
                       class="relative px-5 flex justify-center max-w-[500px] mx-auto w-full lg:px-0"
@@ -109,12 +115,6 @@ const fetchPhotosBySearch = async (term: string) => {
                       </div>
                     </div>
                   </div>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-
-                    <v-btn text="Close" @click="isActive.value = false"></v-btn>
-                  </v-card-actions>
                 </v-card>
               </template>
             </v-dialog>
