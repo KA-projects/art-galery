@@ -6,7 +6,10 @@ export const useFavouritesStore = defineStore("favourites", {
     favourites: [] as unknown as (UnsplashApi & PhotoDetails)[],
   }),
   actions: {
-    addFavourites(favourite: UnsplashApi & PhotoDetails) {
+    addFavourites(favourite: (UnsplashApi & PhotoDetails) | undefined) {
+      if (!favourite) {
+        return new Error("favourite is undefined");
+      }
       if (this.favourites.some((item) => item.id === favourite.id)) {
         return;
       }

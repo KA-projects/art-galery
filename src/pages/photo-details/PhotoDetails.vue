@@ -1,66 +1,59 @@
-<script setup lang="ts">
-import { useRoute } from "vue-router";
-import { onMounted, ref, watch } from "vue";
+<script lang="ts">
+
+import { defineComponent } from "vue";
 import { PhotoDetails, UnsplashApi } from "../types";
 import { useFavouritesStore } from "../stores/favourites";
 
-const route = useRoute();
-const photoId = route.params.id as string;
-
-onMounted(() => {
-  fetchPhotoById(photoId);
-});
-
-watch(
-  () => route.params.id,
-  (newId) => {
-    fetchPhotoById(newId as string);
-  }
-);
-
-const isOpenSnackbar = ref(false);
-
-const photo = ref<UnsplashApi & PhotoDetails>({
-  id: "",
-  urls: {
-    raw: "",
-    regular: "",
-    full: "",
-    small: "",
-    thumb: "",
+export default defineComponent({
+  data(): {
+    photo: (UnsplashApi & PhotoDetails) | undefined;
+    isOpenSnackbar: boolean;
+    photoId: string | string[];
+    favouritesStore: ReturnType<typeof useFavouritesStore>;
+  } {
+    return {
+      photo: undefined,
+      isOpenSnackbar: false,
+      photoId: this.$route.params.id,
+      favouritesStore: useFavouritesStore(),
+    };
   },
-  user: {
-    name: "",
-    username: "",
-    profile_image: {
-      medium: "",
+  mounted() {
+    this.fetchPhotoById(this.photoId as string);
+
+    this.$watch(
+      () => this.$route.params.id,
+      (newId) => {
+        this.fetchPhotoById(newId as string);
+      }
+    );
+  },
+  methods: {
+    async fetchPhotoById(id: string) {
+      const res = await fetch(`https://api.unsplash.com/photos/${id}`, {
+        method: "GET",
+        headers: {
+          "Accept-Version": "v1",
+          Authorization: `Client-ID ${
+            import.meta.env.VITE_UNSPLASH_ACCESS_KEY
+          }`,
+        },
+      });
+      const data = await res.json();
+
+      this.photo = data;
+    },
+
+    addFavourite() {
+      this.favouritesStore.addFavourites(this.photo);
+      this.isOpenSnackbar = true;
     },
   },
 });
-
-const fetchPhotoById = async (id: string) => {
-  const res = await fetch(`https://api.unsplash.com/photos/${id}`, {
-    method: "GET",
-    headers: {
-      "Accept-Version": "v1",
-      Authorization: `Client-ID ${import.meta.env.VITE_UNSPLASH_ACCESS_KEY}`,
-    },
-  });
-  const data = await res.json();
-
-  photo.value = data;
-};
-
-const favouritesStore = useFavouritesStore();
-
-const addFavourite = () => {
-  favouritesStore.addFavourites(photo.value);
-  isOpenSnackbar.value = true;
-};
 </script>
 
 <template>
-  <div class="mt-10">
+  <div class="mt-10" v-if="photo">
     <v-snackbar v-model="isOpenSnackbar" :timeout="2000">
       <span class="text-lg">Added to favourites</span>
 
@@ -117,7 +110,7 @@ const addFavourite = () => {
     </div>
   </div>
 
-  <div class="mt-8">
+  <div class="mt-8" v-if="photo">
     <div class="px-5 max-w-container-xl mx-auto">
       <img
         :src="photo.urls.full"
@@ -126,4 +119,6 @@ const addFavourite = () => {
       />
     </div>
   </div>
+
+  <div v-else class="text-center text-2xl font-medium">Loading...</div>
 </template>

@@ -1,43 +1,58 @@
-<script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { type UnsplashApi } from "../../types";
+<script lang="ts">
+import {defineComponent} from 'vue'
+import type {  UnsplashApi } from "../../types";
 
-const photos = ref<UnsplashApi[]>([]);
-const term = ref<string>("");
+export default defineComponent({
+  data(): {
+    photos: UnsplashApi[];
+    term: string;
+  } {
+    return {
+      photos: [],
+      term: "",
+    };
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      const res = await fetch(
+        "https://api.unsplash.com/photos/random?count=8",
+        {
+          method: "GET",
 
-onMounted(() => {
-  fetchData();
-});
+          headers: {
+            "Accept-Version": "v1",
+            Authorization: `Client-ID ${
+              import.meta.env.VITE_UNSPLASH_ACCESS_KEY
+            }`,
+          },
+        }
+      );
 
-const fetchData = async () => {
-  const res = await fetch("https://api.unsplash.com/photos/random?count=8", {
-    method: "GET",
-
-    headers: {
-      "Accept-Version": "v1",
-      Authorization: `Client-ID ${import.meta.env.VITE_UNSPLASH_ACCESS_KEY}`,
+      this.photos = await res.json();
     },
-  });
+    async fetchPhotosBySearch(term: string) {
+      const res = await fetch(
+        `https://api.unsplash.com/search/photos?query=${term}`,
+        {
+          method: "GET",
+          headers: {
+            "Accept-Version": "v1",
+            Authorization: `Client-ID ${
+              import.meta.env.VITE_UNSPLASH_ACCESS_KEY
+            }`,
+          },
+        }
+      );
 
-  photos.value = await res.json();
-};
+      const data = await res.json();
 
-const fetchPhotosBySearch = async (term: string) => {
-  const res = await fetch(
-    `https://api.unsplash.com/search/photos?query=${term}`,
-    {
-      method: "GET",
-      headers: {
-        "Accept-Version": "v1",
-        Authorization: `Client-ID ${import.meta.env.VITE_UNSPLASH_ACCESS_KEY}`,
-      },
-    }
-  );
-
-  const data = await res.json();
-
-  photos.value = data.results;
-};
+      this.photos = data.results;
+    },
+  },
+}) ;
 </script>
 
 <template>

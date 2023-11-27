@@ -1,7 +1,14 @@
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent } from "vue";
 import { useFavouritesStore } from "../stores/favourites";
 
-const favouritesStore = useFavouritesStore();
+export default defineComponent({
+  data() {
+    return {
+      favouritesStore: useFavouritesStore(),
+    };
+  },
+});
 </script>
 
 <template>

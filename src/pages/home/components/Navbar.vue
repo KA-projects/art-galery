@@ -1,43 +1,63 @@
-<script setup lang="ts">
+<script lang="ts">
 import FavourtiresSVG from "../../svg/FavourtiresSVG.vue";
 import SearchSVG from "../../svg/SearchSVG.vue";
 
-import { ref, watch } from "vue";
+import { defineComponent } from "vue";
 import { useRoute } from "vue-router";
 import { UnsplashApi } from "../../types";
 
-const route = useRoute();
-const showSearch = ref(false);
-const term = ref<string>("");
-const photos = ref<UnsplashApi[]>([]);
+export default defineComponent({
+  components: {
+    FavourtiresSVG,
+    SearchSVG,
+  },
+  data(): {
+    photos: UnsplashApi[];
+    term: string;
+    showSearch: boolean;
+  } {
+    return {
+      photos: [],
+      term: "",
+      showSearch: false,
+    };
+  },
 
-watch(
-  () => route.path,
-  (newPath) => {
-    if (newPath === "/") {
-      showSearch.value = false;
-    } else {
-      showSearch.value = true;
-    }
-  }
-);
+  created() {
+    const route = useRoute();
 
-const fetchPhotosBySearch = async (term: string) => {
-  const res = await fetch(
-    `https://api.unsplash.com/search/photos?query=${term}`,
-    {
-      method: "GET",
-      headers: {
-        "Accept-Version": "v1",
-        Authorization: `Client-ID ${import.meta.env.VITE_UNSPLASH_ACCESS_KEY}`,
-      },
-    }
-  );
+    this.$watch(
+      () => route.path,
+      (newPath) => {
+        if (newPath === "/") {
+          this.showSearch = false;
+        } else {
+          this.showSearch = true;
+        }
+      }
+    );
+  },
+  methods: {
+    async fetchPhotosBySearch(term: string) {
+      const res = await fetch(
+        `https://api.unsplash.com/search/photos?query=${term}`,
+        {
+          method: "GET",
+          headers: {
+            "Accept-Version": "v1",
+            Authorization: `Client-ID ${
+              import.meta.env.VITE_UNSPLASH_ACCESS_KEY
+            }`,
+          },
+        }
+      );
 
-  const data = await res.json();
+      const data = await res.json();
 
-  photos.value = data.results;
-};
+      this.photos = data.results;
+    },
+  },
+});
 </script>
 
 <template>
