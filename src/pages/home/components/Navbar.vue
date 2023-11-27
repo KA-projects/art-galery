@@ -32,6 +32,7 @@ export default defineComponent({
         if (newPath === "/") {
           this.showSearch = false;
         } else {
+          //
           this.showSearch = true;
         }
       }
